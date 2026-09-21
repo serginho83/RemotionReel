@@ -2,7 +2,9 @@ name: Deploy online preview
 
 on:
   push:
-    branches: [main]
+    # Run even when the repository uses a default branch other than `main`.
+    # This also makes the first deployment start as soon as this file is pushed.
+    branches: ["**"]
   workflow_dispatch:
 
 permissions:

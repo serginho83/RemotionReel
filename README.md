@@ -11,7 +11,11 @@ npm install
 npm run dev
 ```
 
-Apri l'indirizzo mostrato da Vite (normalmente `http://localhost:5173`). Per pubblicarla online, fai il push sul branch `main` e abilita **Settings → Pages → Source: GitHub Actions**: il workflow incluso compilerà e pubblicherà automaticamente il sito. Puoi anche avviare manualmente il workflow **Deploy online preview** dalla sezione Actions.
+Apri l'indirizzo mostrato da Vite (normalmente `http://localhost:5173`). Per pubblicarla online, fai il push su GitHub e abilita **Settings → Pages → Source: GitHub Actions**: il workflow incluso compilerà e pubblicherà automaticamente il sito. Puoi anche avviare manualmente il workflow **Deploy online preview** dalla sezione Actions.
+
+### Se il workflow non compare in Actions
+
+GitHub mostra un workflow solo dopo che il file `.github/workflows/pages.yml` è stato effettivamente caricato nel repository. Controlla nella scheda **Code** che il file sia presente sul branch visualizzato; se stai lavorando tramite Pull Request, esegui prima il merge. Al push del file il primo deploy parte automaticamente su qualunque branch. Dopo il primo avvio, apri **Actions → Deploy online preview** e attendi la spunta verde; il link pubblico compare nel job `deploy` e nella pagina **Settings → Pages**.
 
 ## Avvio rapido
 
