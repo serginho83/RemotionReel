@@ -1,0 +1,29 @@
+{
+  "brand": "Studio Nova",
+  "handle": "@studionova",
+  "fps": 30,
+  "callToAction": "Scopri di più",
+  "scenes": [
+    {
+      "durationInSeconds": 2.5,
+      "eyebrow": "Una nuova idea",
+      "title": "Il tuo contenuto merita movimento.",
+      "body": "Dal brief al reel, in pochi secondi.",
+      "accent": "#f97316"
+    },
+    {
+      "durationInSeconds": 3,
+      "eyebrow": "Automazione creativa",
+      "title": "Un JSON. Tre piattaforme.",
+      "body": "Instagram, Facebook e YouTube pronti per la pubblicazione.",
+      "accent": "#22d3ee",
+      "background": "linear-gradient(145deg, #06161b 0%, #073d47 55%, #075985 100%)"
+    },
+    {
+      "durationInSeconds": 2.5,
+      "eyebrow": "Crea · Renderizza · Pubblica",
+      "title": "Premi play alla tua storia.",
+      "accent": "#c4b5fd"
+    }
+  ]
+}
