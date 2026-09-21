@@ -4,7 +4,9 @@ Una pipeline **JSON → video verticale** per creare in un solo comando Reel Ins
 
 ## Anteprima online
 
-Il progetto include una web app responsive con player Remotion, editor JSON live e selettore della piattaforma:
+Il progetto include una web app responsive con player Remotion e pannelli di configurazione live:
+
+La overview include anche il template **Find The Word**: puoi modificare hook, logo, parole, definizioni, immagini, feedback, outro, durata delle scene, colori, dimensioni e sfocatura dai pannelli **Contenuti**, **Tempi** e **Stile**, senza modificare il codice.
 
 ```bash
 npm install
