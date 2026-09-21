@@ -2,9 +2,8 @@ name: Deploy online preview
 
 on:
   push:
-    # Run even when the repository uses a default branch other than `main`.
-    # This also makes the first deployment start as soon as this file is pushed.
-    branches: ["**"]
+    # GitHub Pages protects its environment: only the production branch may deploy.
+    branches: [main]
   workflow_dispatch:
 
 permissions:

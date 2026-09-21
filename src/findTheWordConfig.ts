@@ -4,11 +4,15 @@ export type WordItem = {
   definition: string;
   image: string;
   feedback: string;
+  pronunciationAudio?: string;
 };
 
 export type FindTheWordSettings = {
   fps: number;
   logoSrc: string;
+  backgroundAudio: string;
+  backgroundVolume: number;
+  pronunciationVolume: number;
   hookSeconds: number;
   guessSeconds: number;
   revealSeconds: number;
@@ -19,6 +23,7 @@ export type FindTheWordSettings = {
   outroTitle: string;
   outroSubtitle: string;
   outroTagline: string;
+  outroGreeting: string;
   primaryColor: string;
   primaryDarkColor: string;
   primarySoftColor: string;
@@ -30,12 +35,20 @@ export type FindTheWordSettings = {
   titleFontSize: number;
   wordFontSize: number;
   definitionFontSize: number;
+  hookEffect: string;
+  imageEffect: string;
+  revealEffect: string;
+  feedbackEffect: string;
+  outroEffect: string;
   words: WordItem[];
 };
 
 export const defaultFindTheWordSettings: FindTheWordSettings = {
   fps: 30,
   logoSrc: "logo-nhoemigo.svg",
+  backgroundAudio: "",
+  backgroundVolume: 0.2,
+  pronunciationVolume: 1,
   hookSeconds: 1.5,
   guessSeconds: 3,
   revealSeconds: 1.8,
@@ -46,6 +59,7 @@ export const defaultFindTheWordSettings: FindTheWordSettings = {
   outroTitle: "Follow NhoemiGo",
   outroSubtitle: "More word challenges every week!",
   outroTagline: "Learn one word at a time.",
+  outroGreeting: "Thanks for playing!",
   primaryColor: "#0667D8",
   primaryDarkColor: "#064A9C",
   primarySoftColor: "#DCEEFF",
@@ -57,6 +71,11 @@ export const defaultFindTheWordSettings: FindTheWordSettings = {
   titleFontSize: 110,
   wordFontSize: 94,
   definitionFontSize: 48,
+  hookEffect: "zoom-in-5",
+  imageEffect: "slide-up-4",
+  revealEffect: "zoom-in-7",
+  feedbackEffect: "slide-up-3",
+  outroEffect: "fade-6",
   words: [
     {word: "PRUNING", maskedWord: "P___IN_", definition: "Trimming plants to promote healthy growth.", image: "images/pruning.svg", feedback: "Excellent!"},
     {word: "WATERING", maskedWord: "WAT_R_NG", definition: "Giving plants water to help them grow.", image: "images/watering.svg", feedback: "Great!"},

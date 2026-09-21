@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "tsx scripts/preview-server.ts",
+    "dev:vite": "vite",
     "build:web": "vite build",
     "preview": "vite preview",
     "studio": "remotion studio src/index.ts",

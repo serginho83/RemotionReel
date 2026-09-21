@@ -1,11 +1,17 @@
 import React from "react";
-import {AbsoluteFill, Easing, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from "remotion";
+import {AbsoluteFill, Audio, Easing, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from "remotion";
 import type {FindTheWordSettings, WordItem} from "./findTheWordConfig.ts";
+import {effectStyle} from "./effects.ts";
 
 type Theme = Pick<FindTheWordSettings, "primaryColor" | "primaryDarkColor" | "primarySoftColor" | "successColor" | "successSoftColor" | "backgroundColor">;
 const fontFamily = "Arial, Helvetica, sans-serif";
 
 const asset = (source: string) => source.startsWith("http") || source.startsWith("data:") ? source : staticFile(source);
+
+const Effect: React.FC<{id: string; children: React.ReactNode; style?: React.CSSProperties}> = ({id, children, style}) => {
+  const frame = useCurrentFrame();
+  return <div style={{width: "100%", ...style, ...effectStyle(id, frame)}}>{children}</div>;
+};
 
 export const BrandLogo: React.FC<{src: string; width?: number}> = ({src, width = 240}) => (
   <Img src={asset(src)} style={{width, height: "auto", objectFit: "contain"}} />
@@ -69,7 +75,7 @@ const NextIndicator: React.FC<{theme: Theme; start?: number}> = ({theme, start =
 const HookScene: React.FC<{settings: FindTheWordSettings; theme: Theme}> = ({settings, theme}) => <AbsoluteFill style={{background: theme.backgroundColor, padding: "90px 70px 80px"}}>
   <BrandLogo src={settings.logoSrc} />
   <div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 48}}>
-    <HookTitle line1={settings.hookLine1} line2={settings.hookLine2} fontSize={settings.titleFontSize} theme={theme}/>
+    <Effect id={settings.hookEffect}><HookTitle line1={settings.hookLine1} line2={settings.hookLine2} fontSize={settings.titleFontSize} theme={theme}/></Effect>
     <HookSubtitle lines={settings.hookSubtitle} theme={theme}/>
   </div>
   <div style={{display: "flex", justifyContent: "flex-end"}}><NextIndicator theme={theme} start={22}/></div>
@@ -83,7 +89,7 @@ const WordScene: React.FC<{item: WordItem; settings: FindTheWordSettings; theme:
   return <AbsoluteFill style={{background: theme.backgroundColor, padding: "72px 70px 80px"}}>
     <BrandLogo src={settings.logoSrc} width={220}/>
     <div style={{marginTop: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 38}}>
-      <WordImage src={item.image} revealAt={guessFrames} height={settings.imageHeight} blur={settings.blurAmount}/>
+      <Effect id={settings.imageEffect}><WordImage src={item.image} revealAt={guessFrames} height={settings.imageHeight} blur={settings.blurAmount}/></Effect>
       {frame < guessFrames ? <>
         <div style={{fontFamily, fontSize: settings.wordFontSize, fontWeight: 900, letterSpacing: 8, color: theme.primaryColor}}>{item.maskedWord}</div>
         <div style={{fontFamily, fontSize: settings.definitionFontSize, fontWeight: 800, textAlign: "center", color: theme.primaryDarkColor}}>{item.definition}</div>
@@ -91,10 +97,11 @@ const WordScene: React.FC<{item: WordItem; settings: FindTheWordSettings; theme:
       </> : <Sequence from={guessFrames} durationInFrames={revealFrames} layout="none">
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 30,
           opacity: interpolate(frame, [guessFrames, guessFrames + 8], [0, 1], {extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(.16, 1, .3, 1)})}}>
-          <div style={{fontFamily, fontSize: settings.wordFontSize, fontWeight: 900, letterSpacing: 12, color: theme.primaryColor}}>{item.word}</div>
+          <Effect id={settings.revealEffect}><div style={{fontFamily, fontSize: settings.wordFontSize, fontWeight: 900, letterSpacing: 12, color: theme.primaryColor}}>{item.word}</div></Effect>
           <div style={{fontFamily, fontSize: settings.definitionFontSize, fontWeight: 800, textAlign: "center", color: theme.primaryDarkColor}}>{item.definition}</div>
-          <FeedbackBadge text={item.feedback} theme={theme}/>
+          <Effect id={settings.feedbackEffect}><FeedbackBadge text={item.feedback} theme={theme}/></Effect>
         </div>
+        {item.pronunciationAudio ? <Audio src={asset(item.pronunciationAudio)} volume={settings.pronunciationVolume}/> : null}
       </Sequence>}
     </div>
     <div style={{position: "absolute", right: 70, bottom: 60}}><NextIndicator theme={theme} start={guessFrames + 10}/></div>
@@ -105,15 +112,17 @@ const OutroScene: React.FC<{settings: FindTheWordSettings; theme: Theme}> = ({se
   const frame = useCurrentFrame();
   return <AbsoluteFill style={{background: theme.backgroundColor, padding: "90px 70px", alignItems: "center"}}>
     <div style={{alignSelf: "flex-start"}}><BrandLogo src={settings.logoSrc}/></div>
-    <div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 44, textAlign: "center",
+    <Effect id={settings.outroEffect} style={{flex: 1, display: "flex"}}><div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 34, textAlign: "center",
       opacity: interpolate(frame, [0, 12], [0, 1], {extrapolateRight: "clamp"})}}>
+      <BrandLogo src={settings.logoSrc} width={390}/>
+      <div style={{fontFamily, fontSize: 44, fontWeight: 800, color: theme.primaryColor}}>{settings.outroGreeting}</div>
       <div style={{fontFamily, fontSize: 108, fontWeight: 900, lineHeight: .95, color: theme.primaryDarkColor}}>{settings.outroTitle}</div>
       <div style={{width: 540, height: 12, borderRadius: 99, background: theme.primaryColor}}/>
       <div style={{fontFamily, fontSize: 46, fontWeight: 700, color: theme.primaryColor}}>{settings.outroSubtitle}</div>
       <div style={{display: "flex", gap: 26}}>{[["IG", "#d62976"], ["▶", "#f00"], ["♪", "#111"]].map(([label, color]) =>
         <div key={label} style={{width: 84, height: 84, borderRadius: 22, display: "grid", placeItems: "center", fontSize: 40, fontWeight: 900, color: "white", background: color}}>{label}</div>)}</div>
       <div style={{fontFamily, fontSize: 42, fontStyle: "italic", color: theme.primaryDarkColor}}>{settings.outroTagline}</div>
-    </div>
+    </div></Effect>
   </AbsoluteFill>;
 };
 
@@ -124,6 +133,7 @@ export const FindTheWordReel: React.FC<FindTheWordSettings> = (settings) => {
   const outro = Math.round(settings.outroSeconds * fps);
   const theme: Theme = settings;
   return <AbsoluteFill>
+    {settings.backgroundAudio ? <Audio src={asset(settings.backgroundAudio)} volume={settings.backgroundVolume} loop/> : null}
     <Sequence durationInFrames={hook}><HookScene settings={settings} theme={theme}/></Sequence>
     {settings.words.map((item, index) => <Sequence key={`${item.word}-${index}`} from={hook + index * word} durationInFrames={word}>
       <WordScene item={item} settings={settings} theme={theme}/>

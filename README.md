@@ -6,7 +6,9 @@ Una pipeline **JSON → video verticale** per creare in un solo comando Reel Ins
 
 Il progetto include una web app responsive con player Remotion e pannelli di configurazione live:
 
-La overview include anche il template **Find The Word**: puoi modificare hook, logo, parole, definizioni, immagini, feedback, outro, durata delle scene, colori, dimensioni e sfocatura dai pannelli **Contenuti**, **Tempi** e **Stile**, senza modificare il codice.
+La overview include anche il template **Find The Word**: puoi aggiungere un numero illimitato di parole e modificare hook, logo, definizioni, immagini, feedback, saluto finale, durata delle scene, colori, dimensioni e sfocatura senza toccare il codice. Il pannello **Effetti** offre 120 preset applicabili separatamente a hook, immagine, risposta, feedback e outro. Le impostazioni vengono salvate automaticamente nel browser e possono essere esportate in JSON.
+
+Immagini, logo, musica e pronunce possono essere caricati al volo dalla overview. La musica accompagna l'intero reel, mentre l'audio di ogni parola parte al momento del reveal. Con `npm run dev` viene avviato anche il renderer Node locale: il pulsante **Scarica MP4** produce e scarica il video H.264. GitHub Pages è un hosting statico e mostra la preview, ma per renderizzare MP4 online è necessario distribuire anche `scripts/preview-server.ts` su un hosting Node.
 
 ```bash
 npm install
@@ -17,7 +19,7 @@ Apri l'indirizzo mostrato da Vite (normalmente `http://localhost:5173`). Per pub
 
 ### Se il workflow non compare in Actions
 
-GitHub mostra un workflow solo dopo che il file `.github/workflows/pages.yml` è stato effettivamente caricato nel repository. Controlla nella scheda **Code** che il file sia presente sul branch visualizzato; se stai lavorando tramite Pull Request, esegui prima il merge. Al push del file il primo deploy parte automaticamente su qualunque branch. Dopo il primo avvio, apri **Actions → Deploy online preview** e attendi la spunta verde; il link pubblico compare nel job `deploy` e nella pagina **Settings → Pages**.
+GitHub mostra un workflow solo dopo che il file `.github/workflows/pages.yml` è stato effettivamente caricato nel repository. Controlla nella scheda **Code** che il file sia presente; se stai lavorando tramite Pull Request, esegui prima il merge. Per rispettare le regole di protezione dell'environment `github-pages`, il deploy parte automaticamente solo dopo il merge sul branch `main`. Dopo il primo avvio, apri **Actions → Deploy online preview** e attendi la spunta verde; il link pubblico compare nel job `deploy` e nella pagina **Settings → Pages**.
 
 ## Avvio rapido
 
