@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;700;800&display=swap');
+
+:root { color-scheme: dark; font-family: Manrope, sans-serif; background: #080914; color: #f8f7ff; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 76% 15%, #29145a 0, transparent 31rem), #080914; }
+button, textarea { font: inherit; }
+main { min-height: 100vh; padding: 0 clamp(20px, 5vw, 76px) 70px; }
+.topbar { height: 88px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #292a3d; }
+.logo { color: white; text-decoration: none; font-weight: 800; letter-spacing: -.4px; }
+.logo span { display: inline-grid; place-items: center; width: 35px; height: 35px; margin-right: 10px; border-radius: 11px; background: #8b5cf6; }
+.status { padding: 9px 14px; border: 1px solid #323449; border-radius: 99px; color: #b9bbcc; font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; }
+.status i { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px #4ade80; }
+.hero { display: flex; align-items: end; justify-content: space-between; gap: 40px; padding: 70px 0 52px; }
+.kicker { color: #a78bfa; font: 500 12px DM Mono, monospace; letter-spacing: 3px; }
+h1 { font-size: clamp(46px, 6.2vw, 88px); line-height: .98; letter-spacing: -5px; margin: 18px 0 25px; }
+h1 em { color: #a78bfa; font-style: normal; }
+.intro { max-width: 620px; color: #aaaabd; font-size: 17px; line-height: 1.7; }
+.platforms { display: flex; gap: 8px; padding: 6px; background: #11121f; border: 1px solid #292a3d; border-radius: 16px; }
+.platforms button, .panel-title button { border: 0; color: #9b9caf; background: transparent; cursor: pointer; }
+.platforms button { white-space: nowrap; padding: 12px 15px; border-radius: 11px; font-size: 13px; font-weight: 700; }
+.platforms button.active { color: white; background: #6d45d7; box-shadow: 0 5px 20px #6d45d744; }
+.workspace { display: grid; grid-template-columns: minmax(360px, 1fr) minmax(360px, .85fr); border: 1px solid #292a3d; border-radius: 24px; overflow: hidden; background: #0e0f1b; box-shadow: 0 30px 80px #0008; }
+.editor-panel { display: flex; min-height: 720px; flex-direction: column; border-right: 1px solid #292a3d; }
+.panel-title { height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; border-bottom: 1px solid #292a3d; font: 500 13px DM Mono, monospace; }
+.panel-title span:before { content: '{}'; color: #a78bfa; margin-right: 10px; }
+.panel-title button:hover { color: white; }
+textarea { flex: 1; resize: none; outline: 0; border: 0; padding: 24px; background: #0b0c17; color: #d6d1e9; font: 400 14px/1.7 DM Mono, monospace; }
+.validation { min-height: 51px; display: flex; align-items: center; padding: 10px 20px; gap: 10px; border-top: 1px solid #292a3d; color: #7de9a1; font-size: 13px; }
+.validation span { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; background: #153d27; }
+.validation.error { color: #ff9c9c; }.validation.error span { background: #481d27; }
+.preview-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 42px; background-image: radial-gradient(#34354b 1px, transparent 1px); background-size: 20px 20px; }
+.phone { width: min(310px, 100%); aspect-ratio: 9/16; padding: 8px; overflow: hidden; border: 2px solid #404156; border-radius: 35px; background: #03040a; box-shadow: 0 24px 70px #000b; }
+.phone > div { overflow: hidden; border-radius: 26px; }
+.empty { height: 100%; display: grid; place-items: center; padding: 30px; text-align: center; color: #aaaabd; }
+.meta { width: min(310px, 100%); display: flex; justify-content: space-between; margin-top: 20px; font-size: 12px; }.meta span { color: #8d8ea2; }
+@media (max-width: 900px) { .hero { align-items: start; flex-direction: column; }.workspace { grid-template-columns: 1fr; }.editor-panel { min-height: 560px; border-right: 0; border-bottom: 1px solid #292a3d; }.preview-panel { padding: 35px 20px; } }
+@media (max-width: 520px) { main { padding-inline: 14px; }.status { display: none; }.hero { padding-top: 44px; }.platforms { width: 100%; overflow-x: auto; } h1 { letter-spacing: -3px; } }
